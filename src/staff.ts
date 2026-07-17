@@ -19,7 +19,7 @@ export const staff: StaffMember[] = [
     department: 'Administration',
     years: '1958 – 1964',
     note: 'Founder of the institution. Known for nightly rounds that no orderly was permitted to witness.',
-    photo: file:///C:/Users/ixarp/Downloads/test.png.png,
+    photo: https://i.postimg.cc/TphD2ksX/test-png.jpg,
   },
   {
     id: 2,
