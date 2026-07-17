@@ -67,11 +67,9 @@ export default function ExitPlate({ open, onClose, onConfirm }: Props) {
         }
         onClick={(e) => e.stopPropagation()}
       >
-        {/* torn / deckled edge feel via double border */}
         <div className="pointer-events-none absolute inset-2 border border-sepia-400/40" />
         <div className="pointer-events-none absolute inset-3.5 border border-sepia-400/20" />
 
-        {/* close x */}
         <button
           onClick={handleCancel}
           className="absolute right-3 top-3 z-10 rounded-sm p-1 text-sepia-500 transition hover:bg-page-200 hover:text-sepia-800"
@@ -80,7 +78,6 @@ export default function ExitPlate({ open, onClose, onConfirm }: Props) {
           <X size={16} />
         </button>
 
-        {/* heading */}
         <p className="font-fellsc text-[10px] uppercase tracking-[0.35em] text-sepia-500">
           Notice
         </p>
@@ -96,12 +93,10 @@ export default function ExitPlate({ open, onClose, onConfirm }: Props) {
           The photographs will remain where they are.
         </p>
 
-        {/* wax seal */}
         <div className="my-6 flex justify-center">
           <div className="wax-seal h-16 w-16 rounded-full" aria-hidden />
         </div>
 
-        {/* actions */}
         <div className="relative flex items-center justify-center gap-3">
           <button
             onClick={handleCancel}

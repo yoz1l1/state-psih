@@ -5,6 +5,7 @@ export type StaffMember = {
   department: string;
   years: string;
   note: string;
+  /** Local image from public/, or an external URL. Leave empty to show "No photograph on file". */
   photo: string;
 };
 

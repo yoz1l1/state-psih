@@ -101,16 +101,19 @@ body {
     inset 0 0 30px rgba(80, 60, 30, 0.18);
 }
 
+/* ---------- NO-PHOTO PLACEHOLDER ---------- */
+.no-photo {
+  background-color: #c9bfa8;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(120, 96, 50, 0.10) 0, rgba(120, 96, 50, 0.10) 6px, transparent 6px, transparent 12px),
+    radial-gradient(ellipse at 50% 40%, rgba(90, 70, 36, 0.18), transparent 65%);
+}
+
 /* ---------- CAPTION: HANDWRITTEN ---------- */
 .handwritten {
   font-family: 'Special Elite', monospace;
   color: #3d2b1a;
   letter-spacing: 0.01em;
-}
-
-/* ---------- TEXTURED LINK ---------- */
-.ink-bleed {
-  text-shadow: 0 0 0.4px rgba(42, 31, 18, 0.5);
 }
 
 /* ---------- DEBOSS (PRESSED INTO LEATHER) ---------- */
@@ -176,14 +179,8 @@ body {
 .plate-overlay.is-closing {
   animation: plate-fade-out 0.4s ease forwards;
 }
-@keyframes plate-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes plate-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
+@keyframes plate-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes plate-fade-out { from { opacity: 1; } to { opacity: 0; } }
 
 .plate-card {
   animation: plate-rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
