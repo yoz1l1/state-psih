@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { staff } from './staff';
 import PhotoCell from './components/PhotoCell';
+import ExitPlate from './components/ExitPlate';
 
 const PER_PAGE = 2;
 const pages: typeof staff[] = [];
@@ -13,7 +14,6 @@ const TOTAL = pages.length;
 function LeatherCover({ onOpen }: { onOpen: () => void }) {
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4 py-10">
-      {/* ambient glow */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(184,154,82,0.08),transparent_60%)]" />
 
       <button
@@ -21,11 +21,9 @@ function LeatherCover({ onOpen }: { onOpen: () => void }) {
         className="leather group relative block w-full max-w-xl cursor-pointer rounded-sm border border-leather-500/30 p-10 text-center shadow-[0_30px_80px_rgba(0,0,0,0.7)] transition-transform duration-500 hover:scale-[1.015] sm:p-14"
         aria-label="Open the album"
       >
-        {/* gilded border frame */}
         <div className="pointer-events-none absolute inset-3 border border-brass-500/30" />
         <div className="pointer-events-none absolute inset-5 border border-brass-400/20" />
 
-        {/* brass corner ornaments */}
         {[
           'left-4 top-4',
           'right-4 top-4 rotate-90',
@@ -110,7 +108,6 @@ function PageSpread({
       ref={revealRef}
       className="relative mx-auto flex w-full max-w-5xl flex-col"
     >
-      {/* page header */}
       <header className="fade-in mb-6 flex items-end justify-between border-b-2 border-double border-sepia-400/50 pb-2">
         <span className="font-fellsc text-[11px] uppercase tracking-[0.25em] text-sepia-600 sm:text-xs">
           Blackwood State Asylum
@@ -123,7 +120,6 @@ function PageSpread({
         </span>
       </header>
 
-      {/* photo grid: 2 per page on desktop, 1 per page on mobile */}
       <div className="grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2">
         {page.map((m, i) => (
           <div key={m.id} className="group relative flex justify-center">
@@ -132,7 +128,6 @@ function PageSpread({
         ))}
       </div>
 
-      {/* page navigation */}
       <nav className="fade-in mt-12 flex items-center justify-between border-t border-sepia-400/40 pt-4">
         <button
           onClick={onPrev}
@@ -174,6 +169,7 @@ export default function App() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [anim, setAnim] = useState<'idle' | 'forward' | 'back'>('idle');
+  const [exitOpen, setExitOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const go = (dir: 1 | -1) => {
@@ -186,6 +182,12 @@ export default function App() {
       setPage(next);
       setAnim('idle');
     }, 420);
+  };
+
+  const doClose = () => {
+    setOpen(false);
+    setPage(0);
+    setAnim('idle');
   };
 
   useEffect(() => {
@@ -211,18 +213,12 @@ export default function App() {
 
   return (
     <div className="wood-bg relative min-h-screen w-full overflow-hidden">
-      {/* ambient desk glow */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(184,154,82,0.07),transparent_55%)]" />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-8 sm:px-6">
-        {/* top bar */}
         <div className="fade-in mb-6 flex items-center justify-between">
           <button
-            onClick={() => {
-              setOpen(false);
-              setPage(0);
-              setAnim('idle');
-            }}
+            onClick={() => setExitOpen(true)}
             className="flex items-center gap-2 rounded-sm border border-brass-500/40 bg-leather-700/60 px-3 py-2 font-fell text-xs uppercase tracking-widest text-brass-300/80 transition hover:bg-leather-600"
           >
             <ChevronLeft size={14} />
@@ -233,9 +229,7 @@ export default function App() {
           </p>
         </div>
 
-        {/* album spread with page-swap animation */}
         <div className="album-spread relative flex-1">
-          {/* spiral binding on the left edge */}
           <div className="pointer-events-none absolute -left-3 top-8 bottom-8 z-20 hidden flex-col justify-between sm:flex">
             {Array.from({ length: 14 }).map((_, i) => (
               <span
@@ -246,7 +240,6 @@ export default function App() {
             ))}
           </div>
 
-          {/* the paper page */}
           <div
             className="paper foxing relative flex-1 rounded-sm p-5 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all duration-[420ms] ease-out sm:p-8"
             style={pageStyle}
@@ -262,11 +255,16 @@ export default function App() {
           </div>
         </div>
 
-        {/* bottom hint */}
         <p className="fade-in mt-6 text-center font-fell text-xs italic text-brass-300/40">
           Use the arrows below each plate to turn the page.
         </p>
       </div>
+
+      <ExitPlate
+        open={exitOpen}
+        onClose={() => setExitOpen(false)}
+        onConfirm={doClose}
+      />
     </div>
   );
 }

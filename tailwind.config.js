@@ -42,6 +42,7 @@ export default {
         },
         ink: '#2a1f12',
         gold: '#c9a84c',
+        wax: '#6b1f1c',
       },
       fontFamily: {
         fell: ['"IM Fell English"', 'serif'],
